@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Current Student Enrollment</title>
+  </head>
+
+  <body>
+    {% if student %}
+    <h2>Edit a Student</h2>
+    <form action="/edit" method="post">
+      <input type="hidden" name="action" value="edit_album">
+      <input type="hidden" name="student-key" value= {{ student.urlsafe }}>
+      <fieldset>
+        <legend>Student Information</legend>
+        Name: <input type="text" name="student-name" placeholder="Your Name" value="{{ student.name }}" required>
+        <br>
+        College Name: <input type="text" name="college" value="{{ student.college }}" required>
+        <br>
+        Email: <input type="email" name="email" placeholder="soandso@gmail.com" {% if student.email %} value ="{{ student.email }}" {% endif %}>
+        <br>
+        Level:
+        <input type="radio" name="ranking" value="Freshman" required {% if student.ranking == "Freshman" %} checked {% endif %}> Freshman
+        <input type="radio" name="ranking" value="Sophmore" {% if student.ranking == "Sophmore" %} checked {% endif %}> Sophmore
+        <input type="radio" name="ranking" value="Junior" {% if student.ranking == "Junior" %} checked {% endif %}> Junior
+        <input type="radio" name="ranking" value="Senior" {% if student.ranking == "Senior" %} checked {% endif %}> Senior
+        <br>
+        Credits: <input type="number" name="credits-num" {% if student.credits %} value="{{ student.credits }}" {% endif %}>
+        <br>
+        Computer Science? <input type="checkbox" name="graduated-yes" value="Yes" {% if student.graduated == True %} checked {% endif %}>
+      </fieldset>
+      <fieldset>
+        <legend>Save</legend>
+        <input type="submit" value="Save">
+      </fieldset>
+    </form>
+    {% else %}
+    <h2>Add an Student</h2>
+    <form action="/" method="post">
+      <input type="hidden" name="action" value="add_album">
+      <fieldset>
+        <legend>Student Information</legend>
+        Name: <input type="text" name="student-name" placeholder="Your Name">
+        <br>
+        College Name: <input type="text" name="college">
+        <br>
+        Email: <input type="email" name="email" placeholder="soandso@gmail.com">
+        <br>
+        <!-- Birthday: <input type="date" name="birthday-date" placeholder="mm/dd/yyy">
+        <br> -->
+        Level:
+        <input type="radio" name="ranking" value="Freshman"> Freshman
+        <input type="radio" name="ranking" value="Sophmore"> Sophmore
+        <input type="radio" name="ranking" value="Junior"> Junior
+        <input type="radio" name="ranking" value="Senior"> Senior
+        <br>
+        Credits: <input type="number" name="credits-num">
+        <br>
+        Computer Science? <input type="checkbox" name="graduated-yes" value="Yes">
+      </fieldset>
+      <fieldset>
+        <legend>Save</legend>
+        <input type="submit" value="Save">
+      </fieldset>
+    </form>
+    {% endif %}
+
+    {% if message|length > 0 %}
+    <section>
+      <h3>Result</h3>
+      {% for m in message %}
+      <p> {{ message[m] }}
+      {% endfor %}
+    </section>
+    {% endif %}
+    <p>
+    <a href="/view">View Results</a>
+
+  </body>
+
+</html>

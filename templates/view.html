@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>The Students</title>
+  </head>
+
+  <body>
+  <h2>List of Enrolled Students</h2>
+  {% if student|length > 0 %}
+  <section>
+    <table>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>College</th>
+        <th>Email</th>
+        <th>Level</th>
+        <th>Credits</th>
+        <th>Computer Science?</th>
+      </tr>
+      {% for s in student %}
+      <tr>
+        <td><a href='/edit?key={{ s.key }}'>edit</a></td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.college }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.ranking }} </td>
+        <td>{{ s.credits }} </td>
+        <td>{{ s.graduated }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </section>
+    {% endif %}
+  <p>
+  <a href="/">Add another Student</a>
+  </body>
+
+</html>
